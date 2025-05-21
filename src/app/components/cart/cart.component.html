@@ -1,0 +1,68 @@
+<div class="container">
+  <h1 class="page-title">Giỏ hàng của bạn</h1>
+
+  <div class="cart-empty" *ngIf="cartItems.length === 0">
+    <p>Giỏ hàng của bạn đang trống.</p>
+    <a routerLink="/products" class="btn-continue-shopping">Tiếp tục mua sắm</a>
+  </div>
+
+  <div class="cart-content" *ngIf="cartItems.length > 0">
+    <div class="cart-items">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Sản phẩm</th>
+            <th>Giá</th>
+            <th>Kích thước</th>
+            <th>Màu sắc</th>
+            <th>Số lượng</th>
+            <th>Tổng</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cartItems; let i = index">
+            <td class="product-info">
+              <img [src]="item.product.imageUrl" [alt]="item.product.name">
+              <div>
+                <h3>{{ item.product.name }}</h3>
+              </div>
+            </td>
+            <td class="product-price">
+              {{ item.product.price | currency:'VND':'symbol':'1.0-0' }}
+            </td>
+            <td>{{ item.size }}</td>
+            <td>{{ item.color }}</td>
+            <td class="product-quantity">
+              <div class="quantity-selector">
+                <button (click)="updateQuantity(i, item.quantity - 1)">-</button>
+                <input type="number" [(ngModel)]="item.quantity" min="1" (change)="updateQuantity(i, item.quantity)">
+                <button (click)="updateQuantity(i, item.quantity + 1)">+</button>
+              </div>
+            </td>
+            <td class="product-total">
+              {{ item.product.price * item.quantity | currency:'VND':'symbol':'1.0-0' }}
+            </td>
+            <td class="product-remove">
+              <button class="btn-remove" (click)="removeItem(i)">×</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cart-actions">
+      <button class="btn-clear-cart" (click)="clearCart()">Xóa giỏ hàng</button>
+      <a routerLink="/products" class="btn-continue-shopping">Tiếp tục mua sắm</a>
+    </div>
+
+    <div class="cart-summary">
+      <h2>Tổng giỏ hàng</h2>
+      <div class="summary-row">
+        <span>Tổng tiền:</span>
+        <span class="summary-total">{{ totalPrice | currency:'VND':'symbol':'1.0-0' }}</span>
+      </div>
+      <a routerLink="/checkout" class="btn-checkout">Tiến hành thanh toán</a>
+    </div>
+  </div>
+</div>

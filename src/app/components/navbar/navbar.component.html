@@ -1,0 +1,41 @@
+<nav class="navbar">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Shop Quần Áo</a>
+
+    <div class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Trang chủ</a>
+      <a routerLink="/products" routerLinkActive="active">Sản phẩm</a>
+    </div>
+
+    <div class="nav-actions">
+      <!-- Giỏ hàng -->
+      <div class="cart-icon">
+        <a routerLink="/cart">
+          <span class="material-icons">shopping_cart</span>
+          <span class="cart-count" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+        </a>
+      </div>
+
+      <!-- Đăng nhập/Đăng ký -->
+      <div class="auth-links" *ngIf="!isLoggedIn">
+        <a routerLink="/login" routerLinkActive="active">Đăng nhập</a>
+        <a routerLink="/register" routerLinkActive="active">Đăng ký</a>
+      </div>
+
+      <!-- Đã đăng nhập -->
+      <div class="user-menu" *ngIf="isLoggedIn"
+           (mouseenter)="showUserMenu()"
+           (mouseleave)="hideUserMenuWithDelay()">
+        <div class="user-info">
+          <span class="material-icons">person</span>
+          <span class="username">{{ currentUser?.fullName || currentUser?.username }}</span>
+        </div>
+        <div class="dropdown-menu" [class.show]="isUserMenuVisible">
+          <a routerLink="/profile">Tài khoản</a>
+          <a routerLink="/orders">Đơn hàng</a>
+          <a href="javascript:void(0)" (click)="logout()">Đăng xuất</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

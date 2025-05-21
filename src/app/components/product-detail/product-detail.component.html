@@ -1,0 +1,75 @@
+<div class="container" *ngIf="product">
+  <div class="breadcrumb">
+    <a routerLink="/">Trang chủ</a> &gt;
+    <a routerLink="/products">Sản phẩm</a> &gt;
+    <span>{{ product.name }}</span>
+  </div>
+
+  <div class="product-detail">
+    <div class="product-image">
+      <img [src]="product.imageUrl" [alt]="product.name">
+    </div>
+
+    <div class="product-info">
+      <h1>{{ product.name }}</h1>
+      <p class="product-price">{{ product.price | currency:'VND':'symbol':'1.0-0' }}</p>
+      <p class="product-description">{{ product.description }}</p>
+
+      <div class="product-options">
+        <div class="option-group">
+          <label>Kích thước:</label>
+          <div class="size-options">
+            <button
+              *ngFor="let size of product.size"
+              [class.selected]="selectedSize === size"
+              (click)="selectedSize = size"
+            >
+              {{ size }}
+            </button>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <label>Màu sắc:</label>
+          <div class="color-options">
+            <button
+              *ngFor="let color of product.color"
+              [class.selected]="selectedColor === color"
+              (click)="selectedColor = color"
+            >
+              {{ color }}
+            </button>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <label>Số lượng:</label>
+          <div class="quantity-selector">
+            <button (click)="decreaseQuantity()">-</button>
+            <input type="number" [(ngModel)]="quantity" min="1">
+            <button (click)="increaseQuantity()">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="success-message" *ngIf="addedToCart">
+        Sản phẩm đã được thêm vào giỏ hàng!
+      </div>
+
+      <div class="product-actions">
+        <button class="btn-add-to-cart" (click)="addToCart()">
+          Thêm vào giỏ hàng
+        </button>
+        <a routerLink="/cart" class="btn-view-cart">Xem giỏ hàng</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading" *ngIf="!product">
+  Đang tải thông tin sản phẩm...
+</div>

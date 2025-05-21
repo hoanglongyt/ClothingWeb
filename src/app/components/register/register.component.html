@@ -1,0 +1,96 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2>Đăng ký tài khoản</h2>
+    
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Tên đăng nhập *</label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          [(ngModel)]="registerRequest.username" 
+          required
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          [(ngModel)]="registerRequest.email" 
+          required
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="fullName">Họ và tên *</label>
+        <input 
+          type="text" 
+          id="fullName" 
+          name="fullName" 
+          [(ngModel)]="registerRequest.fullName" 
+          required
+        >
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="password">Mật khẩu *</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            [(ngModel)]="registerRequest.password" 
+            required
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword">Xác nhận mật khẩu *</label>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            name="confirmPassword" 
+            [(ngModel)]="confirmPassword" 
+            required
+          >
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="address">Địa chỉ</label>
+        <input 
+          type="text" 
+          id="address" 
+          name="address" 
+          [(ngModel)]="registerRequest.address"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Số điện thoại</label>
+        <input 
+          type="tel" 
+          id="phone" 
+          name="phone" 
+          [(ngModel)]="registerRequest.phone"
+        >
+      </div>
+      
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+      
+      <button type="submit" class="btn-register" [disabled]="isLoading">
+        {{ isLoading ? 'Đang đăng ký...' : 'Đăng ký' }}
+      </button>
+    </form>
+    
+    <div class="login-link">
+      Đã có tài khoản? <a routerLink="/login">Đăng nhập</a>
+    </div>
+  </div>
+</div>
